@@ -1,4 +1,4 @@
-package com.sgg.controller;
+package com.sgg.queue;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
@@ -13,7 +13,8 @@ import javax.jms.*;
  **/
 public class JmsproducerTest {
 
-        public static  final String ACTIVEMQ_URL="tcp://192.168.25.128:61616";
+      //  public static  final String ACTIVEMQ_URL="tcp://192.168.25.128:61616";
+        public static  final String ACTIVEMQ_URL="tcp://localhost:61616";
         public static  final String QUEUE_NAME="queue01";
     public static void main(String[] args) throws JMSException {
 
@@ -28,6 +29,8 @@ public class JmsproducerTest {
         Queue queue = session.createQueue(QUEUE_NAME);
         //5.由会话创建消息生产者
         MessageProducer messageProducer = session.createProducer(queue);
+        //如果设置为非持久化，mq服务重启以后，消息会丢失，反之，如果设置为持久化，服务器宕机，消息不会丢失，默认为持久化
+//        messageProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
         for (int i = 1; i <=6 ; i++) {
             //6.由会话session创建消息
             TextMessage message = session.createTextMessage("msg***"+i);
@@ -36,6 +39,7 @@ public class JmsproducerTest {
         }
          //8.关闭相关资源
         messageProducer.close();
+      //  session.commit();
         session.close();
         connection.close();
         System.out.println("mp消息发送到queue完成*******");

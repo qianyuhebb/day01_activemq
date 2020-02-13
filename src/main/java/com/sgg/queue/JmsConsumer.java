@@ -1,7 +1,5 @@
-package com.sgg.controller;
-
+package com.sgg.queue;
 import org.apache.activemq.ActiveMQConnectionFactory;
-
 import javax.jms.*;
 
 /**
@@ -11,16 +9,17 @@ import javax.jms.*;
  * 参数：
  * 返回值：
  **/
-public class JmsConsumer2 {
-    public static final String ACTIVEMQ_URL = "tcp://192.168.25.128:61616";
+public class JmsConsumer {
+//    public static final String ACTIVEMQ_URL = "tcp://192.168.25.128:61616";
+    public static  final String ACTIVEMQ_URL="tcp://localhost:61616";
     public static final String QUEUE_NAME = "queue01";   // 1对1 的队列
 
     public static void main(String[] args) throws Exception{
-        System.out.println("我是2号消费者");
+        System.out.println("我是1号消费者");
         // 1 按照给定的url创建连接工程，这个构造器采用默认的用户名密码
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(ACTIVEMQ_URL);
         // 2 通过连接工厂连接 connection  和 启动
-        Connection connection = activeMQConnectionFactory.createConnection();
+        javax.jms.Connection connection = activeMQConnectionFactory.createConnection();
         //  启动
         connection.start();
         // 3 创建回话  session
@@ -63,6 +62,7 @@ public class JmsConsumer2 {
        });
         System.in.read();
         messageConsumer.close();
+      //  session.commit();
         session.close();
         connection.close();
 

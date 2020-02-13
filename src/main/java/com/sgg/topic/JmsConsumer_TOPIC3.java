@@ -1,4 +1,4 @@
-package com.sgg.controller;
+package com.sgg.topic;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
@@ -11,12 +11,12 @@ import javax.jms.*;
  * 参数：
  * 返回值：
  **/
-public class JmsConsumer_TOPIC2 {
+public class JmsConsumer_TOPIC3 {
     public static final String ACTIVEMQ_URL = "tcp://192.168.25.128:61616";
     public static final String TOPIC_NAME = "topic01";   // 1对1 的队列
 
     public static void main(String[] args) throws Exception{
-        System.out.println("我是2号消费者");
+        System.out.println("我是3号消费者");
         // 1 按照给定的url创建连接工程，这个构造器采用默认的用户名密码
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(ACTIVEMQ_URL);
         // 2 通过连接工厂连接 connection  和 启动
@@ -68,6 +68,13 @@ public class JmsConsumer_TOPIC2 {
                TextMessage textMessage = (TextMessage)message;
                try {
                    System.out.println("****消费者的消息："+textMessage.getText());
+               }catch (JMSException e) {
+                   e.printStackTrace();
+               }
+           }else if (null != message  && message instanceof MapMessage){
+               MapMessage mapMessage = (MapMessage)message;
+               try {
+                   System.out.println("****mapmessage消费者的消息："+mapMessage.getString("map"));
                }catch (JMSException e) {
                    e.printStackTrace();
                }
