@@ -11,7 +11,7 @@ import javax.jms.TextMessage;
 /**
  * 时间：  2020/2/13
  * 创建者：  Administrator 钟文
- * 描述：
+ * 描述 ：
  * 参数：
  * 返回值：
  **/
