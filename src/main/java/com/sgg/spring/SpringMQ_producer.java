@@ -21,6 +21,7 @@ public class SpringMQ_producer {
     @Autowired
     private JmsTemplate jmsTemplate;
 
+
     public static void main(String[] args) {
 
         ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
