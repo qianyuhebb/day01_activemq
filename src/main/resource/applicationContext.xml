@@ -30,13 +30,24 @@
         <constructor-arg index="0" value="spring-active-queue"></constructor-arg>
     </bean>
 
-
+    <!-- 主题目的地 -->
+    <bean id="destinationTopic" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg index="0" value="spring-active-topic"></constructor-arg>
+    </bean>
     <!--  jms 的工具类 -->
     <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <property name="connectionFactory" ref="jmsFactory"/>
-        <property name="defaultDestination" ref="destinationQueue"/>
+        <property name="defaultDestination" ref="destinationTopic"/>
         <property name="messageConverter">
             <bean class="org.springframework.jms.support.converter.SimpleMessageConverter"/>
         </property>
+    </bean>
+
+    <!--配置监听类-->
+    <bean id="jmsContains" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="jmsFactory"/>
+        <property name="destination" ref="destinationTopic"/>
+      <!--        listener  需要自己定义一个监听器，实现一个接口-->
+        <property name="messageListener" ref="myMessageListener"/>
     </bean>
 </beans>

@@ -27,7 +27,7 @@ public class SpringMQ_producer {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
         SpringMQ_producer producer = (SpringMQ_producer) ctx.getBean("springMQ_producer");
         producer.jmsTemplate.send((session) -> {
-            TextMessage textMessage = session.createTextMessage("spring 和 activemq 的整合");
+            TextMessage textMessage = session.createTextMessage("spring 和 activemq 的监听器整合333");
             return textMessage;
         });
         System.out.println(" *** send task over ***");
