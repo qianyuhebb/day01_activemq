@@ -24,6 +24,7 @@ public class SpringMQ_producer {
 
     public static void main(String[] args) {
 
+
         ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
         SpringMQ_producer producer = (SpringMQ_producer) ctx.getBean("springMQ_producer");
         producer.jmsTemplate.send((session) -> {
